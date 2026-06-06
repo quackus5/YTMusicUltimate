@@ -99,9 +99,7 @@ jobs:
         id: build_package
         run: |
           cd ${{ github.workspace }}/main
-          make clean package SIDELOADING=1
-        env:
-          THEOS: ${{ github.workspace }}/theos
+          make clean package SIDELOADING=1 THEOS=${{ github.workspace }}/theos SDKVERSION=16.5
 
       - name: Inject tweak into provided IPA
         run: |
