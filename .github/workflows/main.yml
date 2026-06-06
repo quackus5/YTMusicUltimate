@@ -99,8 +99,9 @@ jobs:
         id: build_package
         run: |
           cd ${{ github.workspace }}/main
-          make clean package SIDELOADING=1 THEOS=${{ github.workspace }}/theos SDKVERSION=16.5
-
+          # Pass ADDITIONAL_CFLAGS to bypass the Clang Variable Length Array compiler block
+          make clean package SIDELOADING=1 THEOS=${{ github.workspace }}/theos SDKVERSION=16.5 ADDITIONAL_CFLAGS="-Wno-error=vla-cxx-extension"
+          
       - name: Inject tweak into provided IPA
         run: |
           cd ${{ github.workspace }}/main/packages
